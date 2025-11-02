@@ -35,7 +35,6 @@ export default function RealtimeMapPage() {
     })();
   }, []);
 
-  // ✅ Corrigido: useEffect retorna função limpa
   useEffect(() => {
     const s = getSocket();
     const handler = (payload: any) => {
@@ -58,6 +57,7 @@ export default function RealtimeMapPage() {
   return (
     <div style={{ display: "grid", gap: 16 }}>
       <h1>Planta em tempo real</h1>
+
       <label>
         <input
           type="checkbox"
@@ -93,7 +93,11 @@ export default function RealtimeMapPage() {
               ? "#005DFF"
               : "#FFD600";
           return (
-            <CircleMarker key={i} center={[lat, lon]} radius={5} pathOptions={{ color }}>
+            <CircleMarker
+              key={i}
+              center={[lat, lon]}
+              pathOptions={{ color, radius: 5 }}
+            >
               <Tooltip>
                 {(p.name || `user ${p.user_id}`)} • {(p.role || "colab")} • {p.ts}
               </Tooltip>
